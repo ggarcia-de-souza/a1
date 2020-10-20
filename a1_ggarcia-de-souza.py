@@ -84,8 +84,14 @@ def usage():
     
 if __name__ == "__main__":
     '''
-    I need to finish this part!
-
+    Access command line argument
+    If the number of arguments is not equal to 2, it will exit    
+    Sanitize the input date
+    Split the date into month, day, and year
+    Check for the size of the year, month, and day
+    If the year, month, or day is wrong, it will exit
+    Covert the date into a string
+    Output the string to the user 
     '''
 
     if len(sys.argv) != 2:
@@ -99,6 +105,31 @@ if __name__ == "__main__":
         print("Error 09: wrong date entered")
         sys.exit()
    
+    string_year, string_month, string_day = user_input.split(' ')
+    year = int(string_year)
+    month = int(string_month)
+    day = int(string_day)
+   
+    if range_check(year,(1900,2020)) is False:
+        print("Error 10: year out of range, must be 1900 or later")
+        sys.exit() 
+    
+    if range_check(month,(1,12)) is False:
+        print("Error 02: wrong month entered")
+        sys.exit()
+
+    if (leap_year(year)) is True:
+        months = ((1,31),(1,29),(1,31),(1,30),(1,31),(1,30),(1,31),(1,31),(1,30),(1,31),(1,30),(1,31))
+    else:
+        months = ((1,31),(1,28),(1,31),(1,30),(1,31),(1,30),(1,31),(1,31),(1,30),(1,31),(1,30),(1,31))
+
+    if range_check(day,months[month-1]) is False:
+        print("Error 03: wrong day entered") 
+        sys.exit()
+
+    month_name = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+
+    result = month_name[month - 1] + ' ' + str(day) + ', ' + str(year)
 
     print(result)  
     
